@@ -16,10 +16,10 @@ const Footer = () => (
 					Exchange
 				</p>
 				<p className='text-white text-base text-center mx-2 cursor-pointer'>
-					Tutorials
+					Services
 				</p>
 				<p className='text-white text-base text-center mx-2 cursor-pointer'>
-					Wallets
+					Transactions
 				</p>
 			</div>
 		</div>

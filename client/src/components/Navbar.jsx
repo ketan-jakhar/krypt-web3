@@ -3,6 +3,7 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { TransactionContext } from "../context/TransactionContext";
+
 import logo from "../../images/logo.png";
 
 const NavBarItem = ({ title, classprops }) => (
@@ -19,8 +20,16 @@ const navItems = [
 		link: "https://www.investopedia.com/best-crypto-exchanges-5071855",
 	},
 	{ title: "Services", link: "https://twitter.com/search?q=crypto+services" },
+	// { title: "Ethereum Transactions", link: "https://etherscan.io" },
+];
+const transactionNavItem = [
+	{
+		title: "Your Transactions",
+		link: `https://etherscan.io/search?f=0&q=`,
+	},
 	{ title: "Ethereum Transactions", link: "https://etherscan.io" },
 ];
+const [connectedItem, notConnectedItem] = transactionNavItem;
 
 const Navbar = () => {
 	const [toggleMenu, setToggleMenu] = React.useState(false);
@@ -35,8 +44,22 @@ const Navbar = () => {
 				{navItems.map((item, index) => (
 					<NavBarItem key={item.title + index} title={item} />
 				))}
-				<li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>
-					{!currentAccount ? (
+				{!currentAccount ? (
+					<li className={"mx-4 cursor-pointer Transactions" + navItems.length}>
+						<a href={notConnectedItem.link} target='_blank'>
+							{notConnectedItem.title}
+						</a>
+					</li>
+				) : (
+					<li className={"mx-4 cursor-pointer Transactions" + navItems.length}>
+						<a href={connectedItem.link + currentAccount} target='_blank'>
+							{connectedItem.title}
+						</a>
+					</li>
+				)}
+
+				{!currentAccount ? (
+					<li className='bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]'>
 						<button
 							type='button'
 							onClick={connectWallet}
@@ -45,17 +68,10 @@ const Navbar = () => {
 							<BiLogIn className='text-white mr-2' />
 							<p className='text-white text-base'>Connect Wallet</p>
 						</button>
-					) : (
-						<button
-							type='button'
-							onClick={connectWallet}
-							className='flex flex-row justify-center items-center bg-[#2952e3]rounded-full cursor-pointer hover:bg-[#2546bd]'
-						>
-							<BiLogOut className='text-white mr-2' />
-							<p className='text-white text-base'>Disconnect Wallet</p>
-						</button>
-					)}
-				</li>
+					</li>
+				) : (
+					""
+				)}
 			</ul>
 
 			<div className='flex relative'>
