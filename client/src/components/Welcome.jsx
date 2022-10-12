@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
-import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-
+import { BiLogIn } from "react-icons/bi";
 import { TransactionContext } from "../context/TransactionContext";
 import { shortenAddress } from "../utils/shortenAddress";
 import { Loader } from ".";
@@ -22,8 +21,14 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-	const { currentAccount, handleChange, sendTransaction, formData, isLoading } =
-		useContext(TransactionContext);
+	const {
+		currentAccount,
+		handleChange,
+		sendTransaction,
+		formData,
+		isLoading,
+		connectWallet,
+	} = useContext(TransactionContext);
 
 	const handleSubmit = (e) => {
 		const { addressTo, amount, keyword, message } = formData;
@@ -38,7 +43,7 @@ const Welcome = () => {
 	return (
 		<div className='flex w-full justify-center items-center'>
 			<div className='flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4'>
-				<div className='flex flex-1 justify-start items-start flex-col mf:mr-10'>
+				<div className='flex flex-1 justify-center items-start flex-col mf:mr-10'>
 					<h1 className='text-3xl sm:text-5xl text-white text-gradient py-1'>
 						Send Crypto <br /> across the world
 					</h1>
@@ -46,17 +51,17 @@ const Welcome = () => {
 						Explore the crypto world. Buy and sell cryptocurrencies easily on
 						Krypto.
 					</p>
-					{!currentAccount ? (
+					{!currentAccount && (
 						<button
 							type='button'
 							onClick={connectWallet}
-							className='flex flex-row justify-center items-center bg-[#2952e3]rounded-full cursor-pointer hover:bg-[#2546bd]'
+							className='flex flex-row justify-center items-center my-4 bg-[#2952e3] p-5 rounded-full cursor-pointer hover:bg-[#2546bd] mf:hidden mb-0'
 						>
 							<BiLogIn className='text-white mr-2' />
-							<p className='text-white text-base'>Connect Wallet</p>
+							<p className='text-white text-base font-semibold'>
+								Connect Wallet
+							</p>
 						</button>
-					) : (
-						""
 					)}
 
 					<div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>

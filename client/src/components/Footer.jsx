@@ -16,7 +16,7 @@ const Footer = () => {
 					<img src={logo} alt='logo' className='w-32' />
 				</div>
 				<div className='flex flex-1 justify-evenly items-center flex-wrap sm:mt-0 mt-5 w-full'>
-					{navItems.map((item, index) => (
+					{navItems.map((item) => (
 						<a
 							href={item.link}
 							className='text-white text-base text-center mx-2 cursor-pointer'
