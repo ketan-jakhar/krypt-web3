@@ -46,6 +46,18 @@ const Welcome = () => {
 						Explore the crypto world. Buy and sell cryptocurrencies easily on
 						Krypto.
 					</p>
+					{!currentAccount ? (
+						<button
+							type='button'
+							onClick={connectWallet}
+							className='flex flex-row justify-center items-center bg-[#2952e3]rounded-full cursor-pointer hover:bg-[#2546bd]'
+						>
+							<BiLogIn className='text-white mr-2' />
+							<p className='text-white text-base'>Connect Wallet</p>
+						</button>
+					) : (
+						""
+					)}
 
 					<div className='grid sm:grid-cols-3 grid-cols-2 w-full mt-10'>
 						<div className={`rounded-tl-2xl ${companyCommonStyles}`}>
