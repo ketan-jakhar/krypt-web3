@@ -1,35 +1,15 @@
 import React, { useContext } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
-import { BiLogOut, BiLogIn } from "react-icons/bi";
+import { BiLogIn } from "react-icons/bi";
 import { TransactionContext } from "../context/TransactionContext";
-
+import {
+	NavBarItem,
+	navItems,
+	connectedItem,
+	notConnectedItem,
+} from "../utils/navigationItems";
 import logo from "../../images/logo.png";
-
-const NavBarItem = ({ title, classprops }) => (
-	<li className={`mx-4 cursor-pointer ${classprops}`}>
-		<a href={title.link} target='_blank'>
-			{title.title}
-		</a>
-	</li>
-);
-const navItems = [
-	{ title: "Market", link: "https://coinmarketcap.com" },
-	{
-		title: "Exchange",
-		link: "https://www.investopedia.com/best-crypto-exchanges-5071855",
-	},
-	{ title: "Services", link: "https://twitter.com/search?q=crypto+services" },
-	// { title: "Ethereum Transactions", link: "https://etherscan.io" },
-];
-const transactionNavItem = [
-	{
-		title: "Your Transactions",
-		link: `https://etherscan.io/search?f=0&q=`,
-	},
-	{ title: "Ethereum Transactions", link: "https://etherscan.io" },
-];
-const [connectedItem, notConnectedItem] = transactionNavItem;
 
 const Navbar = () => {
 	const [toggleMenu, setToggleMenu] = React.useState(false);
@@ -97,14 +77,42 @@ const Navbar = () => {
 						<li className='text-xl w-full my-2'>
 							<AiOutlineClose onClick={() => setToggleMenu(false)} />
 						</li>
-						{["Market", "Exchange", "Tutorials", "Wallets"].map(
-							(item, index) => (
+						{/* (item, index) => (
 								<NavBarItem
 									key={item + index}
 									title={item}
 									classprops='my-2 text-lg'
 								/>
 							)
+						)}{["Market", "Exchange", "Tutorials", "Wallets"].map( */}
+
+						{navItems.map((item, index) => (
+							<NavBarItem
+								key={item.title + index}
+								title={item}
+								classprops='my-3 text-lg mx-0'
+							/>
+						))}
+						{!currentAccount ? (
+							<li
+								className={
+									"my-3 text-lg cursor-pointer Transactions" + navItems.length
+								}
+							>
+								<a href={notConnectedItem.link} target='_blank'>
+									{notConnectedItem.title}
+								</a>
+							</li>
+						) : (
+							<li
+								className={
+									"my-3 text-lg cursor-pointer Transactions" + navItems.length
+								}
+							>
+								<a href={connectedItem.link + currentAccount} target='_blank'>
+									{connectedItem.title}
+								</a>
+							</li>
 						)}
 					</ul>
 				)}
